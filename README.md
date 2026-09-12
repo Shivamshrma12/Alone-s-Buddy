@@ -1,6 +1,10 @@
 # Alones Buddy
 
-> AI-powered personal safety navigation that continuously evaluates your surroundings, corridor conditions, and hazards to keep you safe when traveling alone.
+> **GO ANYWHERE. DON'T GO ALONE.**
+
+AI-powered personal safety navigation agent that continuously evaluates your surroundings, corridor conditions, and hazards to keep you safe when traveling alone.
+
+[🚀 **Live Demo**](https://alones-buddy.vercel.app) • [💻 **GitHub Repository**](https://github.com/Shivamshrma12/Alone-s-Buddy)
 
 ---
 
