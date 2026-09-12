@@ -113,7 +113,7 @@ export function AlonesNavigationApp() {
     toggleMode: toggleOrientationMode,
   } = useDeviceOrientation();
 
-  const [is3D, setIs3D] = useState(false);
+  const [is3D, setIs3D] = useState(true);
   const toggle3D = useCallback(() => setIs3D((v) => !v), []);
 
   // Transport Mode & Route Preference States

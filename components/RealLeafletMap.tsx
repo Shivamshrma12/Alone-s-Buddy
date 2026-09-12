@@ -65,7 +65,7 @@ export function RealLeafletMap({
   const hazardMarkerRef = useRef<Marker | null>(null);
 
   // Local state fallbacks if not controlled from parent
-  const [internalIs3D, setInternalIs3D] = useState(false);
+  const [internalIs3D, setInternalIs3D] = useState(true);
   const is3D = propIs3D !== undefined ? propIs3D : internalIs3D;
 
   const [tileStyle, setTileStyle] = useState<"dark" | "standard">("dark");
@@ -457,7 +457,7 @@ export function RealLeafletMap({
                 : "bg-neutral-900/85 hover:bg-neutral-800 text-neutral-300 border-neutral-700/80"
             }`}
           >
-            <span>{is3D ? "3D TILT" : "2D FLAT"}</span>
+            <span>{is3D ? "📐 3D TILT" : "🗺️ 2D FLAT"}</span>
           </button>
 
           {/* Compass / Orientation Mode Button */}

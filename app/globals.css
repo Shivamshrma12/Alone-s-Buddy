@@ -34,20 +34,26 @@ body {
 /* Futuristic 3D Navigation Camera Perspective */
 .leaflet-perspective-container {
   perspective: 850px;
-  perspective-origin: 50% 86%;
+  perspective-origin: 50% 84%;
   overflow: hidden;
 }
 
+.map-tilt-3d .map-heading-rotation,
+.map-tilt-3d .leaflet-container,
 .map-tilt-3d .leaflet-map-pane {
-  transform: rotateX(54deg) scale(1.18) translateY(-4%);
-  transform-origin: 50% 86%;
+  transform-style: preserve-3d;
+}
+
+.map-tilt-3d .leaflet-map-pane {
+  transform: rotateX(56deg) scale(1.24) translateY(-6%);
+  transform-origin: 50% 84%;
   transition: transform 0.65s cubic-bezier(0.2, 0.9, 0.3, 1);
   will-change: transform;
 }
 
 .map-tilt-2d .leaflet-map-pane {
   transform: rotateX(0deg) scale(1) translateY(0);
-  transform-origin: 50% 86%;
+  transform-origin: 50% 84%;
   transition: transform 0.65s cubic-bezier(0.2, 0.9, 0.3, 1);
   will-change: transform;
 }
