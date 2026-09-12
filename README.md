@@ -155,5 +155,6 @@ npm run lint
 ## Hackathon / Team
 
 - **Project**: Alones Buddy
+- **Repository**: [https://github.com/Shivamshrma12/Alone-s-Buddy](https://github.com/Shivamshrma12/Alone-s-Buddy)
 - **Hackathon Track**: AI Safety & Autonomous Agents
 - **Author / Developer**: Shivam Sharma ([@Shivamshrma12](https://github.com/Shivamshrma12))
