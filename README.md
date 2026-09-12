@@ -1,88 +1,159 @@
-# Alones Buddy — Agentic Adaptive Safety Navigation
+# Alones Buddy
 
-> **Alones Buddy** is an autonomous safety navigation web application designed to protect pedestrians reaching their destination. Built around an agentic decision loop, the system continuously observes environmental conditions, evaluates safety risks, takes tool actions, and dynamically adapts routes in real time.
+> AI-powered personal safety navigation that continuously evaluates your surroundings, corridor conditions, and hazards to keep you safe when traveling alone.
 
 ---
 
-## Key Architecture: The Rule of ONE
+## Overview
 
-- **ONE Web Application**: Responsive single application serving all form factors.
-- **ONE Codebase**: Unified Next.js project with zero duplicate platforms.
-- **ONE Backend**: Unified Next.js App Router and Supabase services.
-- **ONE Journey State**: Single source of truth for navigation telemetry and agent decisions.
-- **ONE Agent**: Autonomous AI agent coordinating observation, evaluation, and tool execution.
-- **Responsive Views**:
-  - **Desktop**: Futuristic navigation command center displaying safety telemetry, threat indices, real-time agent reasoning logs, and panoramic tracking.
-  - **Mobile**: High-contrast, map-first pedestrian navigation interface optimized for one-handed operation.
+Traditional navigation applications optimize strictly for the shortest distance or fastest ETA, frequently steering lone pedestrians through dark, deserted alleyways, unlit corridors, or isolated industrial zones.
+
+**Alones Buddy** is built differently: it is a **safety-first personal navigation companion**. It combines real-world street maps, browser GPS geolocation, and an autonomous AI agent layer to monitor route conditions in real time, deterministically evaluate detour limits, and guide users along verified, well-lit, and high-visibility transit paths.
+
+---
+
+## Key Features
+
+- **AI-Powered Safety-First Navigation**: Evaluates corridors against user safety priorities and maximum detour thresholds.
+- **Real-Time Browser GPS**: Live coordinate tracking with circular accuracy visualization and smooth marker updates.
+- **Real-World Map & Free Multimodal Routing**: Built on 100% official OpenStreetMap raster tiles with zero paid map billing; supports **Walk**, **Cycle**, and **Drive** modes.
+- **2D / 3D Navigation Camera**: Seamless toggle between top-down 2D overview and tilted 3D perspective camera with atmospheric horizon depth.
+- **Live Compass Orientation**: Supports **North-Up** and device-sensor **Heading-Up** navigation rotation.
+- **Dynamic Agentic Rerouting**: Autonomous replanning that detects flagged hazards and reroutes to safer alternative corridors within user-defined detour constraints.
+- **What's Ahead Contextual Radar**: Displays upcoming turn maneuvers, public transit stations, libraries, and safe havens.
+- **Emergency SOS & Stay With Me**: Two-stage tiered emergency contact alert escalation and active voice distress monitoring ("help", "bachao").
+- **Responsive Parity**: Premium futuristic desktop command center and streamlined, map-first mobile web experience sharing unified journey state.
+- **Mobile Access QR Code**: Integrated QR code at the bottom of the page allowing any user to immediately open and navigate on their mobile browser.
+
+---
+
+## How It Works
+
+```
+USER GOAL & CONSTRAINTS
+          ↓
+       OBSERVE
+(Real GPS, OSM Route Geometry, Nominatim Geocoding)
+          ↓
+       EVALUATE
+(Corridor Safety, Lighting, Max Detour Limits)
+          ↓
+        DECIDE
+(Maintain Path vs. Safe Detour Proposal)
+          ↓
+         ACT
+(Calculate Alternative Route via OSRM)
+          ↓
+        VERIFY
+(Deterministic Validation: Detour ≤ Max Detour Limit)
+          ↓
+        REPLAN
+(Update Leaflet Map Layers & Journey State)
+```
+
+Alones Buddy strictly separates real-world ground truth data from AI reasoning. Geographic routes and places are sourced from genuine OpenStreetMap and Nominatim APIs; the AI agent evaluates structured facts and validates proposals deterministically rather than inventing fictional crime statistics or fabricated maps.
 
 ---
 
 ## Tech Stack
 
-- **Framework**: [Next.js](https://nextjs.org/) (App Router, Turbopack)
-- **Language**: [TypeScript](https://www.typescriptlang.org/)
-- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
-- **Animations**: [Framer Motion](https://www.framer.com/motion/)
-- **Backend / Database**: [Supabase](https://supabase.com/)
-- **Agent Intelligence**: Grok API (production agent reasoning)
-- **Deployment Target**: [Vercel](https://vercel.com/)
+- **Framework**: Next.js 16 (App Router, Turbopack)
+- **Language**: TypeScript 5 (Strict Mode)
+- **Styling**: Tailwind CSS 4, Vanilla CSS
+- **Interactive Mapping**: Leaflet & OpenStreetMap (Zero-Billing Stack)
+- **Geocoding & Routing**: Nominatim API & OSRM Open Routing (Foot, Bike, Drive)
+- **Agent Intelligence**: Grok API orchestration with deterministic safety fallback
+- **Database & Auth**: Supabase (PostgreSQL, Row Level Security, Anonymous Auth)
+- **Deployment**: Vercel
 
 ---
 
-## Directory Structure
+## Agentic Workflow
 
-```
-/
-├── app/                  # Next.js App Router (pages, layouts, globals.css)
-├── components/           # UI components (Command Center & Mobile Map-First views)
-├── lib/                  # Shared utilities, constants, and helpers
-├── agents/               # Autonomous safety agent orchestration (Grok API integration)
-├── tools/                # Agent-callable tools (routing, hazard checks, alerts)
-├── supabase/             # Database migrations, schemas, client, and RLS policies
-├── types/                # Strict TypeScript domain interfaces
-├── public/               # Static assets
-├── ALONES_BUDDY_SPEC.md  # Architectural specification & non-negotiables
-├── AGENTS.md             # Guidelines and constraints for AI coding agents
-└── README.md             # Project documentation
-```
+Alones Buddy operates as a genuine autonomous agent:
+1. **Observes**: Ingests live telemetry, browser coordinates, travel mode, and destination.
+2. **Evaluates**: Computes safety corridor scores against user constraints (e.g. `alone: true`, `safetyPriority: 0.9`, `maxDetourMinutes: 10`).
+3. **Decides**: Determines whether active conditions satisfy thresholds.
+4. **Acts**: Invokes routing tools to compute alternative corridors upon encountering hazards.
+5. **Verifies**: Validates proposed detours against strict deterministic limits before committing.
+6. **Updates State**: Synchronizes journey records in Supabase and updates the live map HUD.
 
 ---
 
-## Getting Started
+## Demo
+
+During live demonstration:
+1. Enter or select a destination (e.g., *India Gate*).
+2. Choose transport mode (`WALK`, `CYCLE`, or `DRIVE`) and select route preference (`Safe`, `Balanced`, `Quiet`).
+3. Click **START JOURNEY** to observe real route geometry rendered on the dark map.
+4. Click **Simulate Hazard (Demo Reroute)**:
+   - A simulated safety event (unlit corridor) is flagged on the current route.
+   - The Alones AI reasoning stream visibly executes: *Hazard Detected → Re-evaluating Route → Alternative Found → Route Updated (+4 min)*.
+   - The map dynamically transitions to the verified illuminated alternative corridor (green polyline).
+   - *Note: Hackathon demo events are clearly identified internally as simulated and never fabricated as actual real-world crime data.*
+
+---
+
+## Setup
 
 ### Prerequisites
-- Node.js (v20+ recommended)
-- npm (v10+ recommended)
+- Node.js 20+
+- npm 10+
 
-### Installation
+### Environment Variables
+Create a `.env.local` file with the following variables:
+```env
+NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=your-supabase-publishable-key
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
+SUPABASE_SERVICE_ROLE_KEY=your-supabase-service-role-key
+
+# Optional: Grok Agent API Key (deterministic fallback active if omitted)
+GROK_API_KEY=your-grok-api-key
+
+# Optional: Custom Production URL for QR code
+NEXT_PUBLIC_APP_URL=https://alones-buddy.vercel.app
+```
+
+### Installation & Run
 ```bash
+# Install dependencies
 npm install
-```
 
-### Running Locally
-To launch the development server with Turbopack:
-```bash
+# Start development server
 npm run dev
-```
-Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-### Building for Production
-```bash
+# Run production build
 npm run build
-```
 
-### Linting
-```bash
+# Run linter
 npm run lint
 ```
 
 ---
 
-## Non-Negotiable Rules
+## Project Structure
 
-1. **No Separate Applications**: Single responsive codebase only (no Flutter, no separate native apps).
-2. **No Invented APIs**: No fake mock integrations or synthetic endpoints. Integrations adhere to official provider contracts.
-3. **Strict Agentic Workflow**: The agent strictly follows the loop: Observe $\rightarrow$ Decide $\rightarrow$ Tool Action $\rightarrow$ Evaluate $\rightarrow$ Adapt/Replan.
-4. **Lean Dependencies**: Maintain a clean, performant dependency graph without bloat.
+```
+/
+├── app/                  # Next.js App Router, layout, API routes (/api/agent)
+├── components/           # UI components (Command Center, RealLeafletMap, PhoneFrame, QR)
+├── lib/                  # Shared utilities
+│   ├── agent/            # Grok API agent orchestration & deterministic fallback
+│   ├── maps/             # OSM routing, geocoding, GPS location, device compass
+│   ├── supabase/         # Supabase client & server configurations
+│   └── useVoiceDistress  # Web Speech API distress word listener
+├── types/                # Strict TypeScript domain interfaces
+├── supabase/             # Database migrations & RLS policies
+├── ALONES_BUDDY_SPEC.md  # Architectural specification
+├── AGENTS.md             # Coding agent instructions
+└── README.md             # Project documentation
+```
 
-For detailed architecture and rules, see [ALONES_BUDDY_SPEC.md](file:///c:/Users/shiva/Alone's%20Buddy/ALONES_BUDDY_SPEC.md) and [AGENTS.md](file:///c:/Users/shiva/Alone's%20Buddy/AGENTS.md).
+---
+
+## Hackathon / Team
+
+- **Project**: Alones Buddy
+- **Hackathon Track**: AI Safety & Autonomous Agents
+- **Author / Developer**: Shivam Sharma ([@Shivamshrma12](https://github.com/Shivamshrma12))
