@@ -41,6 +41,8 @@ interface JourneyControlPanelProps {
   onSelectTransportMode?: (mode: "walking" | "cycling" | "driving") => void;
   routePreference?: "safe" | "balanced" | "quiet";
   onSelectRoutePreference?: (pref: "safe" | "balanced" | "quiet") => void;
+  is3D?: boolean;
+  onToggle3D?: () => void;
 }
 
 const QUICK_SEARCH_EXAMPLES = ["India Gate", "New Delhi Railway Station", "VIPS Pitampura"];
@@ -74,6 +76,8 @@ export function JourneyControlPanel({
   onSelectTransportMode,
   routePreference = "safe",
   onSelectRoutePreference,
+  is3D = true,
+  onToggle3D,
 }: JourneyControlPanelProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submissionFeedback, setSubmissionFeedback] = useState<string | null>(null);
@@ -419,6 +423,48 @@ export function JourneyControlPanel({
               }`}
             >
               🌿 Quiet
+            </button>
+          </div>
+        </div>
+
+        {/* Map Camera Perspective (2D / 3D) */}
+        <div className="space-y-1.5">
+          <div className="flex items-center justify-between">
+            <label className="block text-xs font-semibold text-neutral-300 uppercase tracking-wider font-mono">
+              Map Camera Perspective
+            </label>
+            <span className="text-[10px] font-mono text-cyan-400">
+              {is3D ? "📐 3D Tilt Active" : "🗺️ 2D Flat Active"}
+            </span>
+          </div>
+          <div className="grid grid-cols-2 gap-2">
+            <button
+              type="button"
+              onClick={() => {
+                if (!is3D && onToggle3D) onToggle3D();
+              }}
+              className={`flex items-center justify-center gap-2 py-2 px-3 rounded-xl text-xs font-bold font-mono transition-all cursor-pointer border ${
+                is3D
+                  ? "bg-[#143dfa] text-white border-blue-400 shadow-[0_0_15px_rgba(20,61,250,0.5)]"
+                  : "bg-neutral-950/70 border-neutral-800 text-neutral-400 hover:text-neutral-200 hover:bg-neutral-900"
+              }`}
+            >
+              <span>📐</span>
+              <span>3D PERSPECTIVE</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                if (is3D && onToggle3D) onToggle3D();
+              }}
+              className={`flex items-center justify-center gap-2 py-2 px-3 rounded-xl text-xs font-bold font-mono transition-all cursor-pointer border ${
+                !is3D
+                  ? "bg-[#143dfa] text-white border-blue-400 shadow-[0_0_15px_rgba(20,61,250,0.5)]"
+                  : "bg-neutral-950/70 border-neutral-800 text-neutral-400 hover:text-neutral-200 hover:bg-neutral-900"
+              }`}
+            >
+              <span>🗺️</span>
+              <span>2D TOP-DOWN</span>
             </button>
           </div>
         </div>

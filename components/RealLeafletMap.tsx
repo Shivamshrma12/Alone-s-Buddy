@@ -443,8 +443,8 @@ export function RealLeafletMap({
       />
       <div className="nav-vignette" />
 
-      {/* Real Map Floating Controls (Top Right) */}
-      <div className="absolute top-3 right-3 z-20 flex flex-col items-end gap-1.5 pointer-events-auto">
+      {/* Real Map Floating Controls (Top Right — positioned clearly below phone notch) */}
+      <div className="absolute top-11 right-3 z-20 flex flex-col items-end gap-1.5 pointer-events-auto">
         <div className="flex items-center gap-1.5">
           {/* 2D / 3D Perspective Tilt Button */}
           <button

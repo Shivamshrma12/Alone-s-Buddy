@@ -676,6 +676,20 @@ export function AlonesNavigationApp() {
             <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#143dfa]/15 border border-[#143dfa]/30 text-blue-300 text-xs font-mono font-bold capitalize">
               <span>{transportMode === "walking" ? "🚶 Walk" : transportMode === "cycling" ? "🚴 Cycle" : "🚗 Drive"}</span>
             </div>
+
+            {/* 3D / 2D Perspective Toggle Button in Header */}
+            <button
+              type="button"
+              onClick={toggle3D}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-mono font-bold border transition-all cursor-pointer shadow-sm ${
+                is3D
+                  ? "bg-[#143dfa] text-white border-blue-400 shadow-[0_0_12px_rgba(20,61,250,0.5)]"
+                  : "bg-[#0f1117] hover:bg-neutral-800 text-neutral-300 border-white/10"
+              }`}
+              title={is3D ? "Switch to 2D Flat View" : "Switch to 3D Navigation Camera"}
+            >
+              <span>{is3D ? "📐 3D Tilt: ON" : "🗺️ 2D Flat: ON"}</span>
+            </button>
           </div>
         </div>
       </header>
@@ -806,6 +820,8 @@ export function AlonesNavigationApp() {
               onSelectTransportMode={handleSelectTransportMode}
               routePreference={routePreference}
               onSelectRoutePreference={handleSelectRoutePreference}
+              is3D={is3D}
+              onToggle3D={toggle3D}
             />
           </div>
 
